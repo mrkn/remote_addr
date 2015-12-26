@@ -1,9 +1,5 @@
 require 'sinatra'
 
 get '/' do
-  "".tap do |res|
-    request.env.each do |key, value|
-      res << "#{key}: #{value.inspect}\n" if /\A[A-Z0-9_]+\z/ === key
-    end
-  end
+  request.env['HTTP_X_FORWARDED_FOR'] || request.env['REMOTE_ADDR']
 end
